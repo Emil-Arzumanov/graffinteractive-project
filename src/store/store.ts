@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import shipListSlice from "./reducers/shipsList-reducer"
+import shipsListSlice from "./reducers/shipsList-reducer"
 export const store = configureStore({
     reducer: {
-        shipList: shipListSlice,
+        shipsList: shipsListSlice,
     },
     devTools: true,
 })

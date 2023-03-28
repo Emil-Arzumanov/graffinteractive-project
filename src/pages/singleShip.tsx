@@ -4,8 +4,8 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 const SingleShip: FC = () => {
     const navigate = useNavigate();
-    const shipList = useAppSelector(state => state.shipList);
-    const dispatch = useAppDispatch();
+    //const shipList = useAppSelector(state => state.shipList);
+    //const dispatch = useAppDispatch();
 
     return (
         <div>

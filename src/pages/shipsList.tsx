@@ -1,28 +1,28 @@
-//https://api.spacexdata.com/v3/ships
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../hooks/redux';
-import {decrement, increment} from "../store/reducers/shipsList-reducer";
-
+import {RootState} from "../store/store";
+import {getAllShips} from "../store/reducers/shipsList-reducer";
+import ShipListElement from "../components/shipListElement";
 
 const ShipsList: FC = () => {
     const navigate = useNavigate();
-    const shipList = useAppSelector(state => state.shipList);
+    const shipsList = useAppSelector((state: RootState) => state.shipsList.ships);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getAllShips());
+    },[])
 
     return (
         <div>
             <div>
                 ShipsList
-                <p>
-                    {shipList.number}
-                </p>
-                <button onClick={() => {
-                    dispatch(increment())
-                }}>increment</button>
-                <button onClick={() => {
-                    dispatch(decrement())
-                }}>decrement</button>
+                <div>
+                    {shipsList.map((ship) => {
+                        return <ShipListElement ship={ship}/>
+                    })}
+                </div>
             </div>
             <button onClick={() => {
                 navigate("/singleShip", {replace: true})

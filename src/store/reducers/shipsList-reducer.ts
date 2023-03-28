@@ -1,29 +1,57 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import axios from "axios";
+import {IShips} from "../../models/IShips";
+
+export const getAllShips = createAsyncThunk(
+    'ships/getAllShips',
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get<IShips[]>('https://api.spacexdata.com/v3/ships')
+            return response.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue("Не удалось загрузить корабли")
+        }
+    }
+)
 
 interface initState {
-    number: number
+    isLoading: boolean,
+    error: string,
+    ships: IShips[],
 }
 
 const initialState: initState = {
-    number: 0,
+    isLoading: false,
+    error: '',
+    ships: []
 }
 
-const shipListSlice = createSlice({
-    name: "registration",
+const shipsListSlice = createSlice({
+    name: "ships",
     initialState,
     reducers: {
-        increment(state) {
-            state.number += 1;
+        increment(state, action:PayloadAction<initState>) {
+
+        }
+    },
+    extraReducers: {
+        [getAllShips.fulfilled.type]: (state, action: PayloadAction<IShips[]>) => {
+            state.isLoading = false;
+            state.error = ''
+            state.ships = action.payload;
         },
-        decrement(state) {
-            state.number -= 1;
+        [getAllShips.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [getAllShips.rejected.type]: (state,  action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = action.payload
         },
     }
 });
 
 export const {
-    increment,
-    decrement
-} = shipListSlice.actions
+    increment
+} = shipsListSlice.actions
 
-export default shipListSlice.reducer
+export default shipsListSlice.reducer
