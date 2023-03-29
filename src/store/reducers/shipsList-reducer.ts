@@ -9,7 +9,7 @@ export const getAllShips = createAsyncThunk(
             const response = await axios.get<IShips[]>('https://api.spacexdata.com/v3/ships')
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue("Не удалось загрузить корабли")
+            return thunkAPI.rejectWithValue("Не удалось загрузить данные корабля")
         }
     }
 )
@@ -34,20 +34,20 @@ const shipsListSlice = createSlice({
 
         }
     },
-    extraReducers: {
-        [getAllShips.fulfilled.type]: (state, action: PayloadAction<IShips[]>) => {
+    extraReducers: (builder) => {
+        builder.addCase(getAllShips.fulfilled.type, (state,action:PayloadAction<IShips[]>) => {
             state.isLoading = false;
             state.error = ''
             state.ships = action.payload;
-        },
-        [getAllShips.pending.type]: (state) => {
+        })
+        builder.addCase(getAllShips.pending.type, (state ) => {
             state.isLoading = true;
-        },
-        [getAllShips.rejected.type]: (state,  action: PayloadAction<string>) => {
+        })
+        builder.addCase(getAllShips.rejected.type, (state, action:PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload
-        },
-    }
+        })
+    },
 });
 
 export const {

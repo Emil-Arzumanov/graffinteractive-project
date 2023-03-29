@@ -1,19 +1,28 @@
-import React,{FC} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {FC, useEffect} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import {RootState} from "../store/store";
+import {getShipById} from "../store/reducers/singleShip-reducer";
 
 const SingleShip: FC = () => {
+    const singleShip = useAppSelector((state: RootState) => state.singleShip.ship);
     const navigate = useNavigate();
-    //const shipList = useAppSelector(state => state.shipList);
-    //const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
+    const [searchParams] = useSearchParams();
+    const shipId = searchParams.get("shipId");
+
+    useEffect(() => {
+        dispatch(getShipById(shipId));
+    },[])
 
     return (
         <div>
             SingleShip
+            {singleShip.ship_name}
             <button onClick={() => {
                 navigate("/", {replace: true})
             }}>
-                To Ship List
+                To Ships List
             </button>
         </div>
     );

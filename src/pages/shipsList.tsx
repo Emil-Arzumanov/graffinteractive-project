@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../hooks/redux';
 import {RootState} from "../store/store";
 import {getAllShips} from "../store/reducers/shipsList-reducer";
 import ShipListElement from "../components/shipListElement";
+import {clearShipData} from "../store/reducers/singleShip-reducer";
 
 const ShipsList: FC = () => {
     const navigate = useNavigate();
@@ -12,6 +13,9 @@ const ShipsList: FC = () => {
 
     useEffect(() => {
         dispatch(getAllShips());
+        return () => {
+            dispatch(clearShipData())
+        };
     },[])
 
     return (
@@ -20,15 +24,10 @@ const ShipsList: FC = () => {
                 ShipsList
                 <div>
                     {shipsList.map((ship) => {
-                        return <ShipListElement ship={ship}/>
+                        return <ShipListElement ship={ship} key={ship.ship_id}/>
                     })}
                 </div>
             </div>
-            <button onClick={() => {
-                navigate("/singleShip", {replace: true})
-            }}>
-                To Single Ship
-            </button>
         </div>
     );
 }
