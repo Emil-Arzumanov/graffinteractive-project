@@ -2,7 +2,7 @@ import React, {FC, useEffect} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {RootState} from "../store/store";
-import {getShipById} from "../store/reducers/singleShip-reducer";
+import {clearShipData, getShipById} from "../store/reducers/singleShip-reducer";
 
 const SingleShip: FC = () => {
     const singleShip = useAppSelector((state: RootState) => state.singleShip.ship);
@@ -13,6 +13,9 @@ const SingleShip: FC = () => {
 
     useEffect(() => {
         dispatch(getShipById(shipId));
+        return () => {
+            dispatch(clearShipData())
+        };
     },[])
 
     return (
