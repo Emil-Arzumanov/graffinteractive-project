@@ -1,6 +1,6 @@
 import React from "react";
-import ShipsList from "../pages/shipsList";
-import SingleShip from "../pages/singleShip";
+import ShipsList from "../pages/ShipsList/shipsList";
+import SingleShip from "../pages/SingleShip/singleShip";
 
 export interface IRoute {
     path: string;

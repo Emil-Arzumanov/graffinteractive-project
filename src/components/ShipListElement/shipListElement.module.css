@@ -1,0 +1,26 @@
+.listElement {
+    background-color: #22242a;
+    padding: 32px;
+    height: 66px;
+    border-radius: 8px;
+}
+.shipName {
+    display: block;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+}
+.shipData {
+    margin-top: 16px;
+}
+.shipData div {
+    width: 218px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+}
+.shipData div span {
+    margin-right: 24px;
+    color: #818798;
+}

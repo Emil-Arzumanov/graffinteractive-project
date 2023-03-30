@@ -1,0 +1,44 @@
+.mainWrapper {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    color: #f2f2f2;
+    min-height: 1080px;
+}
+.rightMenuWrapper {
+    background: #22242a;
+}
+.shipsList {
+    background: #151619;
+    padding: 0 72px 149px 72px;
+}
+.listName {
+    width: 263px;
+    height: 52px;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 130%;
+    margin-top: 56px;
+    margin-bottom: 40px;
+}
+.listElements {
+    display: grid;
+    grid-row: auto;
+    grid-row-gap: 16px;
+}
+.pagination {
+    display: grid;
+    grid-template-columns: 24px 12px 24px;
+    grid-column-gap: 14px;
+    height: 26px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 140%;
+    margin-top: 43px;
+    position: relative;
+}
+.pagination span {
+    display: block;
+}
+.pagination img {
+    background: #151619;
+}
