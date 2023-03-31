@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {IShips} from "../../models/IShips";
 import {useAppDispatch} from "../../hooks/redux";
 import listElemStyle from "./shipListElement.module.css";
+import arrowRight from "../../imgs/Arrow_Right.png";
 
 
 interface ShipProps {
@@ -29,6 +30,7 @@ const ShipListElement: FC<ShipProps> = ({ship}):JSX.Element => {
                 <div><span>Тип</span>{ship.ship_type}</div>
                 <div><span>Порт</span>{ship.home_port}</div>
             </div>
+            <img src={arrowRight} alt=""/>
         </div>
     );
 }

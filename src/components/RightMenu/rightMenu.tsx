@@ -2,11 +2,19 @@ import React from 'react';
 import rightMenuStyle from "./rightMenu.module.css";
 import arrowLeft from "../../imgs/Arrow_Left.png"
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {checkIfChosen, chosePort, closeFilter, updateSelector} from "../../store/reducers/shipsList-reducer";
+import {
+    checkIfChosen,
+    chosePort,
+    closeFilter,
+    updateSelector,
+    updateShipTypeFilter
+} from "../../store/reducers/shipsList-reducer";
 import chevronUp from "../../imgs/Chevron_Up.png";
 import chevronDown from "../../imgs/Chevron_Down.png";
 import checkBoxYes from "../../imgs/CheckBox_Yes.png";
 import checkBoxNo from "../../imgs/CheckBox_No.png";
+import radioButtonNo from "../../imgs/RadioButton_No.png";
+import radioButtonYes from "../../imgs/RadioButton_Yes.png";
 import {RootState} from "../../store/store";
 
 const RightMenu = () => {
@@ -28,8 +36,8 @@ const RightMenu = () => {
             <div>
                 <span>Порт</span>
                 <div className={rightMenuStyle.selectWrapper}>
-                    <div className={rightMenuStyle.selecterWrapper}>
-                        <div className={rightMenuStyle.selecter} onClick={() => dispatch(updateSelector())}>
+                    <div className={rightMenuStyle.selectorWrapper}>
+                        <div className={rightMenuStyle.selector} onClick={() => dispatch(updateSelector())}>
                             Выбрано {shipsList.chosenPorts.length}
                             <img src={shipsList.isSelectorOpen
                                 ? chevronUp
@@ -66,6 +74,43 @@ const RightMenu = () => {
                             />
                             <span>Fort Lauderdale</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span>Тип</span>
+                <div className={rightMenuStyle.typesRadio}>
+                    <div onClick={() => dispatch(updateShipTypeFilter("Barge"))}>
+                        <img src={shipsList.shipTypeFilter === "Barge"
+                            ? radioButtonYes
+                            : radioButtonNo}
+                             alt=""
+                        />
+                        <span>Barge</span>
+                    </div>
+                    <div onClick={() => dispatch(updateShipTypeFilter("Cargo"))}>
+                        <img src={shipsList.shipTypeFilter === "Cargo"
+                            ? radioButtonYes
+                            : radioButtonNo}
+                             alt=""
+                        />
+                        <span>Cargo</span>
+                    </div>
+                    <div onClick={() => dispatch(updateShipTypeFilter("High Speed Craft"))}>
+                        <img src={shipsList.shipTypeFilter === "High Speed Craft"
+                            ? radioButtonYes
+                            : radioButtonNo}
+                             alt=""
+                        />
+                        <span>High Speed Craft</span>
+                    </div>
+                    <div onClick={() => dispatch(updateShipTypeFilter("Tug"))}>
+                        <img src={shipsList.shipTypeFilter === "Tug"
+                            ? radioButtonYes
+                            : radioButtonNo}
+                             alt=""
+                        />
+                        <span>Tug</span>
                     </div>
                 </div>
             </div>

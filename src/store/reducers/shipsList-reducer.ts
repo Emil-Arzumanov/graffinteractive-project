@@ -33,6 +33,7 @@ interface initState {
     isFilterOpen: boolean,
     isSelectorOpen: boolean,
     chosenPorts: string[],
+    shipTypeFilter: string,
 }
 
 const initialState: initState = {
@@ -46,6 +47,7 @@ const initialState: initState = {
     isFilterOpen: false,
     isSelectorOpen: false,
     chosenPorts: [],
+    shipTypeFilter: 'All',
 }
 
 const shipsListSlice = createSlice({
@@ -79,6 +81,13 @@ const shipsListSlice = createSlice({
                 state.chosenPorts.push(action.payload)
             }
         },
+        updateShipTypeFilter(state, action: PayloadAction<string>) {
+            if (state.shipTypeFilter === action.payload) {
+                state.shipTypeFilter = "All"
+            } else {
+                state.shipTypeFilter = action.payload;
+            }
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAllShips.fulfilled.type, (state,action:PayloadAction<IShips[]>) => {
@@ -104,7 +113,8 @@ export const {
     openFilter,
     closeFilter,
     updateSelector,
-    chosePort
+    chosePort,
+    updateShipTypeFilter
 } = shipsListSlice.actions
 
 export default shipsListSlice.reducer

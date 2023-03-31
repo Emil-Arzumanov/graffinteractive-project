@@ -3,6 +3,16 @@
     padding: 32px;
     min-height: 66px;
     border-radius: 8px;
+    position: relative;
+}
+.listElement img {
+    display: none;
+    position: absolute;
+    right: 53px;
+    top: 53px;
+}
+.listElement:hover {
+    background-color: #393C46;
 }
 .shipName {
     display: block;
@@ -36,5 +46,8 @@
         margin-top: 16px;
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+    .listElement:hover img {
+        display: block;
     }
 }
