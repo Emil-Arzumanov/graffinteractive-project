@@ -14,6 +14,15 @@
     font-size: 40px;
     line-height: 130%;
 }
+.filter {
+    width: 112px;
+    padding-bottom: 24px;
+    grid-template-columns: 1fr 1fr;
+}
+.filter span {
+    display: inline-block;
+    vertical-align: middle;
+}
 .listElements {
     display: grid;
     grid-row: auto;
@@ -36,10 +45,27 @@
 .pagination img {
     background: #151619;
 }
-@media (max-width: 767px) {
+
+.shipsListHidden {
+    display: none;
+}
+.menuWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background: #22242a;
+}
+
+@media (max-width: 769px) {
     .listName {
         padding-top: 32px;
         padding-bottom: 21px;
+    }
+    .filter {
+        display: grid;
     }
     .mainWrapper {
         width: 100%;
@@ -51,10 +77,13 @@
         padding: 0 8px 68px 8px;
     }
 }
-@media (min-width: 767px) {
+@media (min-width: 769px) {
     .listName {
         padding-top: 56px;
         padding-bottom: 40px;
+    }
+    .filter {
+        display: none;
     }
     .mainWrapper {
         display: grid;

@@ -55,8 +55,14 @@ const SingleShip: FC = () => {
                 <div className={singleShipStyle.shipDataName}>Миссии</div>
                 <div className={singleShipStyle.shipMissions}>
                     {singleShip.missions.length > 0
-                        ? singleShip.missions.map((mission:IMissions) => {
-                            return <span>{mission.name+", "}</span>
+                        ? singleShip.missions.map((mission:IMissions, index: number) => {
+                            if (singleShip.missions.length-1 === index)
+                                return (
+                                    <span>{mission.name}</span>
+                                );
+                            return (
+                                <span>{mission.name+", "}</span>
+                            )
                         }) : "Не данных"}
                 </div>
             </div>

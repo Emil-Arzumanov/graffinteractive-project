@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import {IShips} from "../../models/IShips";
-
+//Thunks
 export const getAllShips = createAsyncThunk(
     'ships/getAllShips',
     async (_, thunkAPI) => {
@@ -14,23 +14,38 @@ export const getAllShips = createAsyncThunk(
         }
     }
 )
-
+/** Helpers **/
+export const checkIfChosen = (chosenPorts:string[],port: string) => {
+    for (let i=0;i < chosenPorts.length;i++) {
+        if (chosenPorts[i] === port) return true;
+    }
+    return false;
+}
+/***/
 interface initState {
     isLoading: boolean,
     error: string,
     ships: IShips[],
+    filteredShips: IShips[],
     currentPage: number,
     maxPages: number,
     pageSize: number,
+    isFilterOpen: boolean,
+    isSelectorOpen: boolean,
+    chosenPorts: string[],
 }
 
 const initialState: initState = {
     isLoading: false,
     error: '',
     ships: [],
+    filteredShips: [],
     currentPage: 1,
     maxPages: 5,
     pageSize: 5,
+    isFilterOpen: false,
+    isSelectorOpen: false,
+    chosenPorts: [],
 }
 
 const shipsListSlice = createSlice({
@@ -48,12 +63,29 @@ const shipsListSlice = createSlice({
         setMaxPages(state, action:PayloadAction<number>) {
             state.maxPages = Math.ceil((action.payload) / state.pageSize);
         },
+        openFilter(state) {
+            state.isFilterOpen = true
+        },
+        closeFilter(state) {
+            state.isFilterOpen = false
+        },
+        updateSelector(state) {
+            state.isSelectorOpen = !state.isSelectorOpen
+        },
+        chosePort(state, action: PayloadAction<string>) {
+            if (checkIfChosen(state.chosenPorts, action.payload)) {
+                state.chosenPorts = state.chosenPorts.filter(word => word !== action.payload);
+            } else {
+                state.chosenPorts.push(action.payload)
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getAllShips.fulfilled.type, (state,action:PayloadAction<IShips[]>) => {
             state.isLoading = false;
             state.error = ''
             state.ships = action.payload;
+            state.filteredShips = action.payload;
         })
         builder.addCase(getAllShips.pending.type, (state ) => {
             state.isLoading = true;
@@ -68,7 +100,11 @@ const shipsListSlice = createSlice({
 export const {
     nextPage,
     previousPage,
-    setMaxPages
+    setMaxPages,
+    openFilter,
+    closeFilter,
+    updateSelector,
+    chosePort
 } = shipsListSlice.actions
 
 export default shipsListSlice.reducer
