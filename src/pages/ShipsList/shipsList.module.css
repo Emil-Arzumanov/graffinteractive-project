@@ -1,24 +1,18 @@
 .mainWrapper {
-    display: grid;
-    grid-template-columns: 80% 20%;
     color: #f2f2f2;
-    min-height: 1080px;
+    height: 100vh;
 }
 .rightMenuWrapper {
     background: #22242a;
 }
 .shipsList {
     background: #151619;
-    padding: 0 72px 149px 72px;
 }
 .listName {
-    width: 263px;
-    height: 52px;
+    min-height: 52px;
     font-weight: 500;
     font-size: 40px;
     line-height: 130%;
-    margin-top: 56px;
-    margin-bottom: 40px;
 }
 .listElements {
     display: grid;
@@ -41,4 +35,32 @@
 }
 .pagination img {
     background: #151619;
+}
+@media (max-width: 767px) {
+    .listName {
+        padding-top: 32px;
+        padding-bottom: 21px;
+    }
+    .mainWrapper {
+        width: 100%;
+    }
+    .rightMenuWrapper {
+        display: none;
+    }
+    .shipsList {
+        padding: 0 8px 68px 8px;
+    }
+}
+@media (min-width: 767px) {
+    .listName {
+        padding-top: 56px;
+        padding-bottom: 40px;
+    }
+    .mainWrapper {
+        display: grid;
+        grid-template-columns: 80% 20%;
+    }
+    .shipsList {
+        padding: 0 72px 149px 72px;
+    }
 }

@@ -1,5 +1,4 @@
 import React, {FC, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../../hooks/redux';
 import {RootState} from "../../store/store";
 import {getAllShips, nextPage, previousPage} from "../../store/reducers/shipsList-reducer";

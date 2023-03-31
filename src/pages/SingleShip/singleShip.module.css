@@ -1,0 +1,73 @@
+.mainWrapper {
+    background-color: #151619;
+    min-height: 100vh;
+    color: #f2f2f2;
+    padding: 61px 72px;
+}
+.mainPageLink {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+    width: 116px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.mainPageLink div {
+    margin-top: 2px;
+}
+.shipName {
+    min-height: 52px;
+    color: #FFFFFFDE;
+    font-weight: 500;
+    line-height: 130%;
+    margin: 29px 0 29px 0;
+}
+.shipDataWrapper {
+    max-width: 436px;
+    grid-row-gap: 32px;
+}
+.shipData {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    max-width: 218px;
+}
+.shipDataName {
+    color: #818798;
+}
+.shipMissions {
+    margin-top: 24px;
+    max-width: 644px;
+}
+@media (min-width: 767px) {
+    .mainWrapper {
+        padding: 61px 72px;
+    }
+    .shipName {
+        font-size: 40px;
+    }
+    .shipDataWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 32px;
+    }
+    .shipMissions {
+        margin-top: 24px;
+    }
+}
+@media (max-width: 767px) {
+    .mainWrapper {
+        padding: 32px 8px 48px 8px;
+    }
+    .shipName {
+        font-size: 32px;
+    }
+    .shipDataWrapper {
+        display: grid;
+        grid-template-rows: auto;
+        grid-row-gap: 16px;
+        margin-bottom: 16px;
+    }
+    .shipMissions {
+        margin-top: 8px;
+    }
+}
