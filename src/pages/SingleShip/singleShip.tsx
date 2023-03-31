@@ -31,24 +31,24 @@ const SingleShip: FC = () => {
                 <div>Вернуться</div>
             </div>
             <div className={singleShipStyle.shipName}>
-                {singleShip.ship_name || "Не данных"}
+                {singleShip.ship_name || "Нет данных"}
             </div>
             <div className={singleShipStyle.shipDataWrapper}>
                 <div className={singleShipStyle.shipData}>
                     <div className={singleShipStyle.shipDataName}>Тип</div>
-                    <div>{singleShip.ship_type || "Не данных"}</div>
+                    <div>{singleShip.ship_type || "Нет данных"}</div>
                 </div>
                 <div className={singleShipStyle.shipData}>
                     <div className={singleShipStyle.shipDataName}>Порт</div>
-                    <div>{singleShip.home_port || "Не данных"}</div>
+                    <div>{singleShip.home_port || "Нет данных"}</div>
                 </div>
                 <div className={singleShipStyle.shipData}>
                     <div className={singleShipStyle.shipDataName}>Вес</div>
-                    <div>{singleShip.weight_kg || "Не данных"}</div>
+                    <div>{singleShip.weight_kg || "Нет данных"}</div>
                 </div>
                 <div className={singleShipStyle.shipData}>
                     <div className={singleShipStyle.shipDataName}>Год</div>
-                    <div>{singleShip.year_built || "Не данных"}</div>
+                    <div>{singleShip.year_built || "Нет данных"}</div>
                 </div>
             </div>
             <div>
@@ -63,7 +63,7 @@ const SingleShip: FC = () => {
                             return (
                                 <span>{mission.name+", "}</span>
                             )
-                        }) : "Не данных"}
+                        }) : "Нет данных"}
                 </div>
             </div>
         </div>

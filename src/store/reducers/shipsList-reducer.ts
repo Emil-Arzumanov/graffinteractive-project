@@ -7,7 +7,8 @@ export const getAllShips = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const response = await axios.get<IShips[]>('https://api.spacexdata.com/v3/ships')
-            thunkAPI.dispatch(setMaxPages(response.data.length))
+            thunkAPI.dispatch(combineAllFilters());
+            thunkAPI.dispatch(setMaxPages());
             return response.data;
         } catch (e) {
             return thunkAPI.rejectWithValue("Не удалось загрузить данные корабля")
@@ -21,6 +22,25 @@ export const checkIfChosen = (chosenPorts:string[],port: string) => {
     }
     return false;
 }
+const isSearchEqualName = (name: string, filterName: string) => {
+    if (filterName === '') return true;
+    if (filterName.length > name.length) return false;
+    for (let i=0;i < filterName.length;i++) {
+        if (filterName[i] !== name[i]) return false;
+    }
+    return true;
+}
+const isPortEqualFilter = (chosenPorts:string[],port: string) => {
+    if (chosenPorts.length === 0) return true;
+    for (let i=0;i < chosenPorts.length;i++) {
+        if (chosenPorts[i] === port) return true;
+    }
+    return false;
+}
+const isTypeEqualFilter = (elementType: string, chosenType: string) => {
+    if (chosenType === "All") return true;
+    return elementType === chosenType
+}
 /***/
 interface initState {
     isLoading: boolean,
@@ -32,6 +52,7 @@ interface initState {
     pageSize: number,
     isFilterOpen: boolean,
     isSelectorOpen: boolean,
+    searchFilter: string,
     chosenPorts: string[],
     shipTypeFilter: string,
 }
@@ -42,10 +63,11 @@ const initialState: initState = {
     ships: [],
     filteredShips: [],
     currentPage: 1,
-    maxPages: 5,
+    maxPages: 0,
     pageSize: 5,
     isFilterOpen: false,
     isSelectorOpen: false,
+    searchFilter: '',
     chosenPorts: [],
     shipTypeFilter: 'All',
 }
@@ -62,8 +84,8 @@ const shipsListSlice = createSlice({
             if (state.currentPage > 1)
                 state.currentPage -= 1;
         },
-        setMaxPages(state, action:PayloadAction<number>) {
-            state.maxPages = Math.ceil((action.payload) / state.pageSize);
+        setMaxPages(state) {
+            state.maxPages = Math.ceil((state.filteredShips.length) / state.pageSize);
         },
         openFilter(state) {
             state.isFilterOpen = true
@@ -73,6 +95,10 @@ const shipsListSlice = createSlice({
         },
         updateSelector(state) {
             state.isSelectorOpen = !state.isSelectorOpen
+        },
+        updateSearchFilter(state, action: PayloadAction<string>) {
+            state.searchFilter = action.payload;
+
         },
         chosePort(state, action: PayloadAction<string>) {
             if (checkIfChosen(state.chosenPorts, action.payload)) {
@@ -87,6 +113,16 @@ const shipsListSlice = createSlice({
             } else {
                 state.shipTypeFilter = action.payload;
             }
+        },
+        combineAllFilters(state) {
+            state.filteredShips = [];
+            for (let i=0;i < state.ships.length;i++) {
+                if (isSearchEqualName(state.ships[i].ship_name, state.searchFilter)
+                    && isPortEqualFilter(state.chosenPorts, state.ships[i].home_port)
+                    && isTypeEqualFilter(state.ships[i].ship_type,state.shipTypeFilter)) {
+                    state.filteredShips.push(state.ships[i]);
+                }
+            }
         }
     },
     extraReducers: (builder) => {
@@ -94,7 +130,6 @@ const shipsListSlice = createSlice({
             state.isLoading = false;
             state.error = ''
             state.ships = action.payload;
-            state.filteredShips = action.payload;
         })
         builder.addCase(getAllShips.pending.type, (state ) => {
             state.isLoading = true;
@@ -113,8 +148,10 @@ export const {
     openFilter,
     closeFilter,
     updateSelector,
+    updateSearchFilter,
     chosePort,
-    updateShipTypeFilter
+    updateShipTypeFilter,
+    combineAllFilters
 } = shipsListSlice.actions
 
 export default shipsListSlice.reducer

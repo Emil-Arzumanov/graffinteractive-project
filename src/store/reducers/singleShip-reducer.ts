@@ -35,7 +35,7 @@ const initialState: initState = {
 }
 
 const singleShipSlice = createSlice({
-    name: "ship",
+    name: "singleShip",
     initialState,
     reducers: {
         clearShipData(state) {

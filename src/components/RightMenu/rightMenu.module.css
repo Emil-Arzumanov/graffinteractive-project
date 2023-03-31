@@ -43,7 +43,7 @@
 }
 .selectorWrapper {
     border-radius: 2px;
-    background: linear-gradient(to right, #BC75FF, #798FFF);
+    background: linear-gradient(to bottom, #BC75FF, #798FFF);
     padding: 1px;
 }
 .selector {
@@ -93,6 +93,15 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 140%;
+}
+
+.typesRadio, .selectWrapper {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @media (min-width: 769px) {

@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {
     checkIfChosen,
     chosePort,
-    closeFilter,
+    closeFilter, combineAllFilters, setMaxPages, updateSearchFilter,
     updateSelector,
     updateShipTypeFilter
 } from "../../store/reducers/shipsList-reducer";
@@ -21,6 +21,12 @@ const RightMenu = () => {
     const dispatch = useAppDispatch();
     const shipsList = useAppSelector((state: RootState) => state.shipsList);
 
+    const combineDispatches = (reducer: Function,data:string | EventTarget & HTMLInputElement) => {
+        dispatch(reducer(data));
+        dispatch(combineAllFilters());
+        dispatch(setMaxPages());
+    };
+
     return (
         <div className={rightMenuStyle.mainWrapper}>
             <div className={rightMenuStyle.backToShips}
@@ -31,7 +37,12 @@ const RightMenu = () => {
             </div>
             <div className={rightMenuStyle.searchInpt}>
                 <span>Название</span>
-                <input type="search"/>
+                <input type="search"
+                       value={shipsList.searchFilter}
+                       onChange={(e) => {
+                           combineDispatches(updateSearchFilter, e.target.value);
+                       }}
+                />
             </div>
             <div>
                 <span>Порт</span>
@@ -50,7 +61,9 @@ const RightMenu = () => {
                         ? rightMenuStyle.selectOptions
                         : rightMenuStyle.selectOptionsClosed}
                     >
-                        <div onClick={() => dispatch(chosePort("Port Canaveral"))}>
+                        <div onClick={() => {
+                            combineDispatches(chosePort, "Port Canaveral");
+                        }}>
                             <img src={checkIfChosen(shipsList.chosenPorts,"Port Canaveral")
                                 ? checkBoxYes
                                 : checkBoxNo}
@@ -58,7 +71,9 @@ const RightMenu = () => {
                             />
                             <span>Port Canaveral</span>
                         </div>
-                        <div onClick={() => dispatch(chosePort("Port of Los Angeles"))}>
+                        <div onClick={() => {
+                            combineDispatches(chosePort, "Port of Los Angeles");
+                        }}>
                             <img src={checkIfChosen(shipsList.chosenPorts, "Port of Los Angeles")
                                 ? checkBoxYes
                                 : checkBoxNo}
@@ -66,7 +81,9 @@ const RightMenu = () => {
                             />
                             <span>Port of Los Angeles</span>
                         </div>
-                        <div onClick={() => dispatch(chosePort("Fort Lauderdale"))}>
+                        <div onClick={() => {
+                            combineDispatches(chosePort, "Fort Lauderdale");
+                        }}>
                             <img src={checkIfChosen(shipsList.chosenPorts, "Fort Lauderdale")
                                 ? checkBoxYes
                                 : checkBoxNo}
@@ -80,7 +97,9 @@ const RightMenu = () => {
             <div>
                 <span>Тип</span>
                 <div className={rightMenuStyle.typesRadio}>
-                    <div onClick={() => dispatch(updateShipTypeFilter("Barge"))}>
+                    <div onClick={() => {
+                        combineDispatches(updateShipTypeFilter, "Barge");
+                    }}>
                         <img src={shipsList.shipTypeFilter === "Barge"
                             ? radioButtonYes
                             : radioButtonNo}
@@ -88,7 +107,9 @@ const RightMenu = () => {
                         />
                         <span>Barge</span>
                     </div>
-                    <div onClick={() => dispatch(updateShipTypeFilter("Cargo"))}>
+                    <div onClick={() => {
+                        combineDispatches(updateShipTypeFilter, "Cargo");
+                    }}>
                         <img src={shipsList.shipTypeFilter === "Cargo"
                             ? radioButtonYes
                             : radioButtonNo}
@@ -96,7 +117,9 @@ const RightMenu = () => {
                         />
                         <span>Cargo</span>
                     </div>
-                    <div onClick={() => dispatch(updateShipTypeFilter("High Speed Craft"))}>
+                    <div onClick={() => {
+                        combineDispatches(updateShipTypeFilter, "High Speed Craft");
+                    }}>
                         <img src={shipsList.shipTypeFilter === "High Speed Craft"
                             ? radioButtonYes
                             : radioButtonNo}
@@ -104,7 +127,9 @@ const RightMenu = () => {
                         />
                         <span>High Speed Craft</span>
                     </div>
-                    <div onClick={() => dispatch(updateShipTypeFilter("Tug"))}>
+                    <div onClick={() => {
+                        combineDispatches(updateShipTypeFilter, "Tug");
+                    }}>
                         <img src={shipsList.shipTypeFilter === "Tug"
                             ? radioButtonYes
                             : radioButtonNo}
