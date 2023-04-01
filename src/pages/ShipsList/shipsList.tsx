@@ -49,7 +49,7 @@ const ShipsList: FC = () => {
                                    alt="Налево"
                             /> : <div></div>
                     }
-                    <span>{shipsList.maxPages === 1 ? "" : shipsList.currentPage}</span>
+                    <span>{shipsList.maxPages <= 1 ? "" : shipsList.currentPage}</span>
                     {
                         shipsList.currentPage < shipsList.maxPages
                             ? <img onClick={() => {dispatch(nextPage())}}
